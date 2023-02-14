@@ -5,11 +5,21 @@ See assignment-01.pdf for details.
 # no imports needed.
 
 def foo(x):
-    ### TODO
+    if x <= 1:
+      return x
+    else:
+        return foo(x-1) + foo(x-2)
     pass
 
 def longest_run(mylist, key):
-    ### TODO
+    high, count = 0
+    for i in mylist:
+      if i == key:
+        count += 1
+      elif count > high:
+        high = count
+      else:
+        count = 0
     pass
 
 
