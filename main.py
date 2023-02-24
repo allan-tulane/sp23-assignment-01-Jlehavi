@@ -37,8 +37,33 @@ class Result:
     
     
 def longest_run_recursive(mylist, key):
-    ### TODO
-    pass
+  finalObj = longest_run_recursive_helper(mylist, key)
+  return finalObj.longest_size
+
+def longest_run_recursive_helper(mylist, key):
+  if len(mylist) == 0:
+    return 0
+  elif len(mylist) == 1 and mylist[0] == key:
+    return Result(len(mylist)//2, len(mylist) - len(mylist)//2, 1,                      True)
+  elif len(mylist) == 1:
+    return Result(len(mylist)//2, len(mylist) - len(mylist)//2, 0,                      False)
+  else:
+    obj1 = longest_run_recursive(mylist[:len(mylist)//2], key)
+    obj2 = longest_run_recursive(mylist[len(mylist)//2:], key)
+    
+    entireRange = obj1.is_entire_range and obj2.is_entire_range
+  
+    if entireRange:
+      longestSize = obj1.longest_size + obj2.longest_size
+    else:
+      longestSize = max(obj1.longest_size, obj2.longest_size)
+      
+    finalObj = Result(obj1.left_size+obj1.right_size,               
+                      obj2.left_size+obj2.right_size,
+                      longestSize,
+                      entireRange)
+  
+    return finalObj
 
 ## Feel free to add your own tests here.
 def test_longest_run():
